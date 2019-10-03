@@ -35,6 +35,7 @@ class CartController extends AbstractController
             $panier[$id] = 1;
         }
         $session->set('panier', $panier);
-        dd($session->get('panier'));
+        dd($session->get('panier')); 
+        
     }
 }
