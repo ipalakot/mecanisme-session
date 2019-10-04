@@ -1,4 +1,4 @@
-# cours-symfony-session-panier
+# Mecanis-session-(Ex. sur model panierMagasin)
 Code de départ et final de la vidéo sur la session avec Symfony
 
 # Installation
