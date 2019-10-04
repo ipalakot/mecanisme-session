@@ -1,7 +1,6 @@
 # Mecanis-session-(Ex. sur model panierMagasin)
-Code de départ et final de la vidéo sur la session avec Symfony
 
-# Installation
+# Installation de codes & Dbase 
 1. Clonez le dépot chez vous
 2. Lancez la migration : `php bin/console d:m:m`
 3. Lancez la fixture : `php bin/console d:f:l --no-interaction`
