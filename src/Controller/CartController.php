@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Service\Cart\CartService;
+
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Component\BrowserKit\Response;
@@ -45,17 +47,10 @@ class CartController extends AbstractController
      * @Route("/panier/add/{id}", name="card_add")
      * 
      */
-    public function add($id, SessionInterface $session)
-    {
-        $panier = $session->get('panier', []);
-
-        if( !empty($panier[$id])) {
-            $panier[$id]++;
-        } else {
-            $panier[$id] = 1;
-        }
-        $session->set('panier', $panier);
-        
+    public function add($id, CartService $cartService)
+    {   
+        $cartService->add($id);
+       
        return $this->redirectToRoute ('cart_index');
 
     }
