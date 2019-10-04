@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-
+use App\Repository\ProductRepository;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,9 +16,29 @@ class CartController extends AbstractController
     /**
      * @Route("/panier", name="cart_index")
      */
-    public function index()
+    public function index(SessionInterface $session, ProductRepository $productRepository)
     {
-        return $this->render('cart/index.html.twig', []);
+        $panier = $session->get('panier', []);
+
+        $panierWithData= [];
+
+        foreach($panier as $id =>$quantity){
+            $panierWithData[] =[
+                'product' => $productRepository->find($id),
+                'quantity' => $quantity
+            ];
+        }
+            $total = 0;
+             
+            foreach($panierWithData as $item ){
+                $totalItem = $item["product"]->getPrice() * $item["quantity"];
+                $total =  $totalItem;
+            }
+
+           return $this->render('cart/index.html.twig', [
+               'items' => $panierWithData,
+               'total' => $total
+           ]);
     }
 
     /**
@@ -36,6 +56,6 @@ class CartController extends AbstractController
         }
         $session->set('panier', $panier);
         dd($session->get('panier')); 
-        
+
     }
 }
