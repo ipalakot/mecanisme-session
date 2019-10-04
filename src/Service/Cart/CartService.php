@@ -27,6 +27,13 @@ class CartService{
 
     public Function remove(int $id){
 
+        $panier = $this->session->get('panier', []);
+        
+        if (!empty($panier[$id])){
+            unset($panier[$id]);
+        }
+        $this->session ->set('panier', $panier);
+
     }
 /*/
     public function getFullCart(): array {
